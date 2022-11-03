@@ -4,6 +4,8 @@ import sys
 from collections import deque
 from pickle import Pickler, Unpickler
 from random import shuffle
+# import tensorflow as tf
+
 
 import numpy as np
 from tqdm import tqdm
@@ -24,6 +26,7 @@ class Coach():
         self.game = game
         self.nnet = nnet
         self.pnet = self.nnet.__class__(self.game)  # the competitor network
+        # print(self.pnet.nnet.model.summary())
         self.args = args
         self.mcts = MCTS(self.game, self.nnet, self.args)
         self.trainExamplesHistory = []  # history of examples from args.numItersForTrainExamplesHistory latest iterations
@@ -108,6 +111,10 @@ class Coach():
             # training new network, keeping a copy of the old one
             self.nnet.save_checkpoint(folder=self.args.checkpoint, filename='temp')
             self.pnet.load_checkpoint(folder=self.args.checkpoint, filename='temp')
+
+            # hack for QML...(does it work?)
+            # self.pnet = tf.keras.models.clone_model(self.nnet.nnet.model)
+
             pmcts = MCTS(self.game, self.pnet, self.args)
 
             self.nnet.train(trainExamples)

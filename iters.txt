@@ -1,0 +1,6 @@
+PQC: (main diff is new QNN, and its archi/observable, and nnet.py had to encode state in 1d array to match qubits(really 2d of num_boards, qubits),
+ instead of a 2d n x n board(really 3d of num_boards, n, n)
+
+4x4 game(circ only supports up to 20 qubits - https://quantumai.google/cirq/start/basics#:~:text=Cirq%20comes%20bundled%20with%20a,a%20limit%20of%2020%20qubits.)
+starting training -
+7/22/22 4pm
